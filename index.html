@@ -3,6 +3,66 @@
 <head>
 	<title>Menu</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script>
+  // Load menu data from menu.csv file
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "menu.csv",
+      dataType: "text",
+      success: function(data) {
+        processData(data);
+      }
+    });
+  });
+
+  // Process menu data and display items in their respective categories
+  function processData(data) {
+    const menu = $.csv.toObjects(data);
+    const fishMenu = $("#fish-menu");
+    const chickenMenu = $("#chicken-menu");
+    $.each(menu, function(index, item) {
+      if (item.category === "Fish") {
+        fishMenu.append("<div class='menu-item'>" +
+          "<img src='" + item.image + "' alt='" + item.name + "'>" +
+          "<h4>" + item.name + "</h4>" +
+          "<p>$" + item.price + "</p>" +
+          "<button class='add-to-cart' data-item='" + JSON.stringify(item) + "'>Add to Cart</button>" +
+          "</div>");
+      } else if (item.category === "Chicken") {
+        chickenMenu.append("<div class='menu-item'>" +
+          "<img src='" + item.image + "' alt='" + item.name + "'>" +
+          "<h4>" + item.name + "</h4>" +
+          "<p>$" + item.price + "</p>" +
+          "<button class='add-to-cart' data-item='" + JSON.stringify(item) + "'>Add to Cart</button>" +
+          "</div>");
+      }
+    });
+  }
+
+  // Add item to cart when "Add to Cart" button is clicked
+  $(document).on("click", ".add-to-cart", function() {
+    const item = JSON.parse($(this).attr("data-item"));
+    const cartItems = $("#cart-items");
+    cartItems.append("<li>" +
+      "<h4>" + item.name + "</h4>" +
+      "<p>$" + item.price + "</p>" +
+      "</li>");
+  });
+
+  // Redirect to WhatsApp when "Checkout" button is clicked
+  $(document).on("click", "#checkout-button", function() {
+    const cartItems = $("#cart-items").text().trim();
+    if (cartItems === "") {
+      alert("Your cart is empty.");
+    } else {
+      const message = "Hi, I would like to order the following items:\n\n" + cartItems + "\n\nPlease let me know the total cost and how to proceed with the payment. Thank you!";
+      const phone = "9607040169"; // Replace with your WhatsApp number
+      window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    }
+  });
+</script>
+
 </head>
 <body>
 	<h1>Menu</h1>
