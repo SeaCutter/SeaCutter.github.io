@@ -84,7 +84,7 @@ function checkout() {
   // Construct the WhatsApp message
   const message = 'I would like to purchase the following items from your store: ' + cartItemNames;
   // Construct the WhatsApp URL
-  const whatsappUrl = 'https://wa.me/whatsappphonenumber?text=' + encodeURIComponent(message);
+  const whatsappUrl = 'https://wa.me/9607040169?text=' + encodeURIComponent(message);
   // Redirect to the WhatsApp URL
   window.location.replace(whatsappUrl);
 }
