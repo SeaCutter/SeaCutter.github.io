@@ -14,6 +14,7 @@ let cartItems = [];
 // Define a function to load the menu items from the CSV file
 function loadMenu() {
   $.get(menuUrl, function(data) {
+    console.log(data); // add this line to log the CSV data
     // Split the CSV data into rows
     const rows = data.split('\n');
     // Loop through the rows and split them into columns
@@ -39,6 +40,7 @@ function loadMenu() {
     populateMenuCategories();
   });
 }
+
 
 // Define a function to populate the menu categories
 function populateMenuCategories() {
