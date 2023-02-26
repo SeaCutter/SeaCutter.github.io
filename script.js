@@ -60,19 +60,31 @@ function getFishes() {
 
 // Define a function to populate the menu categories
 function populateMenuCategories() {
-  // Populate the fish category
-  const fishMenu = $('#fish-menu');
-  const fishItems = getFishes();
-  fishItems.forEach(item => {
-    const listItem = $('<li></li>');
-    listItem.text(item.name + ' - $' + item.price);
-    const addButton = $('<button>Add to Cart</button>');
-    addButton.click(() => {
-      addToCart(item);
-    });
-    listItem.append(addButton);
-    fishMenu.append(listItem);
-  });
+  var categories = ['fish', 'chicken'];
+  for (var i = 0; i < categories.length; i++) {
+    var category = categories[i];
+    var items = (category === 'fish') ? fishItems : chickenItems;
+    var categoryContainer = $('<div class="category-container"></div>');
+    var categoryTitle = $('<h2></h2>').text(category);
+    categoryContainer.append(categoryTitle);
+    var itemList = $('<ul></ul>');
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+      var itemHtml = '<li class="item">' +
+                     '<div class="item-image">' +
+                     '<img src="' + item.image + '">' +
+                     '</div>' +
+                     '<div class="item-details">' +
+                     '<h3 class="item-name">' + item.name + '</h3>' +
+                     '<div class="item-price">$' + item.price.toFixed(2) + '</div>' +
+                     '</div>' +
+                     '</li>';
+      itemList.append(itemHtml);
+    }
+    categoryContainer.append(itemList);
+    $('#menu-container').append(categoryContainer);
+  }
+}
 
   // Populate the chicken category
   const chickenMenu = $('#chicken-menu');
