@@ -40,15 +40,17 @@ function loadMenu() {
       }
       // Populate the menu categories
       populateMenuCategories();
+      // Log the menu data to verify if it was loaded properly
+      console.log(menuData);
     }
 
     // Call the processData function with the CSV data
     processData(data);
-    
-    // Log the menu data to verify if it was loaded properly
-    console.log(menuData);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('Error retrieving menu data:', textStatus, errorThrown);
   });
 }
+
 
 
 function getFishes() {
