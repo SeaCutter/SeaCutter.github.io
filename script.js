@@ -14,6 +14,7 @@ let cartItems = [];
 
 // Define a function to load the menu items from the CSV file
 function loadMenu() {
+  console.log('loadMenu called');
   $.get(menuUrl, function(data) {
     // Define a function to process the CSV data
     function processData(data) {
