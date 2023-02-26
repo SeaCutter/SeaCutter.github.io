@@ -14,12 +14,12 @@ let cartItems = [];
 // Define a function to load the menu items from the CSV file
 function loadMenu() {
   $.get(menuUrl, function(data) {
-    console.log(data); // add this line to log the CSV data
     // Split the CSV data into rows
     const rows = data.split('\n');
     // Loop through the rows and split them into columns
     for (let i = 1; i < rows.length; i++) {
       const cols = rows[i].split(',');
+      console.log(cols);
       // Create an object to hold the item data
       const item = {
         name: cols[0].trim(),
@@ -27,6 +27,7 @@ function loadMenu() {
         image: cols[2].trim(),
         price: parseFloat(cols[3].trim())
       };
+      console.log(item);
       // Add the item to the menu data
       menuData.push(item);
       // Add the item to the appropriate category
