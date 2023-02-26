@@ -46,12 +46,16 @@ function loadMenu() {
 }
 
 
+function getFishes() {
+  return menuData.filter(item => item.category === 'fish');
+}
+
+
 // Define a function to populate the menu categories
 function populateMenuCategories() {
-  console.log(fishItems);
   // Populate the fish category
   const fishMenu = $('#fish-menu');
-  console.log(fishMenu); // Add this line
+  const fishItems = getFishes();
   fishItems.forEach(item => {
     const listItem = $('<li></li>');
     listItem.text(item.name + ' - $' + item.price);
@@ -62,6 +66,7 @@ function populateMenuCategories() {
     listItem.append(addButton);
     fishMenu.append(listItem);
   });
+
   // Populate the chicken category
   const chickenMenu = $('#chicken-menu');
   chickenItems.forEach(item => {
@@ -75,6 +80,7 @@ function populateMenuCategories() {
     chickenMenu.append(listItem);
   });
 }
+
 
 
 // Define a function to add an item to the cart
