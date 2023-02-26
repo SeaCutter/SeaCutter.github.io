@@ -14,31 +14,34 @@ let cartItems = [];
 // Define a function to load the menu items from the CSV file
 function loadMenu() {
   $.get(menuUrl, function(data) {
-    // Split the CSV data into rows
-    const rows = data.split('\n');
-    // Loop through the rows and split them into columns
-    for (let i = 1; i < rows.length; i++) {
-      const cols = rows[i].split(',');
-      console.log(cols);
-      // Create an object to hold the item data
-      const item = {
-        name: cols[0].trim(),
-        category: cols[1].trim(),
-        image: cols[2].trim(),
-        price: parseFloat(cols[3].trim())
-      };
-      console.log(item);
-      // Add the item to the menu data
-      menuData.push(item);
-      // Add the item to the appropriate category
-      if (item.category === 'fish') {
-        fishItems.push(item);
-      } else if (item.category === 'chicken') {
-        chickenItems.push(item);
+    // Define a function to process the CSV data
+    function processData(data) {
+      var lines = data.split(/\r?\n/);
+      for (var i = 0; i < lines.length; i++) {
+        if (lines[i].length > 0) {
+          var cols = lines[i].split(",");
+          var item = {
+            name: cols[0].trim(),
+            category: cols[1].trim(),
+            image: cols[2].trim(),
+            price: parseFloat(cols[3].trim())
+          };
+          // Add the item to the menu data
+          menuData.push(item);
+          // Add the item to the appropriate category
+          if (item.category === 'fish') {
+            fishItems.push(item);
+          } else if (item.category === 'chicken') {
+            chickenItems.push(item);
+          }
+        }
       }
+      // Populate the menu categories
+      populateMenuCategories();
     }
-    // Populate the menu categories
-    populateMenuCategories();
+
+    // Call the processData function with the CSV data
+    processData(data);
   });
 }
 
