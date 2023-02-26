@@ -48,8 +48,10 @@ function loadMenu() {
 
 // Define a function to populate the menu categories
 function populateMenuCategories() {
+  console.log(fishItems);
   // Populate the fish category
   const fishMenu = $('#fish-menu');
+  console.log(fishMenu); // Add this line
   fishItems.forEach(item => {
     const listItem = $('<li></li>');
     listItem.text(item.name + ' - $' + item.price);
@@ -73,6 +75,7 @@ function populateMenuCategories() {
     chickenMenu.append(listItem);
   });
 }
+
 
 // Define a function to add an item to the cart
 function addToCart(item) {
