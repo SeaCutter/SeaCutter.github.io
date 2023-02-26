@@ -1,5 +1,5 @@
 // URL for the CSV file containing the menu items
-const menuUrl = 'menu.csv';
+const menuUrl = 'https://raw.githubusercontent.com/SeaCutter/SeaCutter.github.io/main/menu.csv';
 
 // Define a variable to hold the menu data
 let menuData = [];
