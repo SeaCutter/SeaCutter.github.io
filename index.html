@@ -5,6 +5,8 @@
   <title>My Online Store</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="papaparse.min.js"></script>
+  <script src="list.js"></script>
 </head>
 <body>
 
@@ -17,9 +19,15 @@
       <h2>Menu</h2>
       <div id="fish-menu">
         <h3>Fish</h3>
+        <div id="fish-items">
+          <!-- The fish items will be generated dynamically by JavaScript -->
+        </div>
       </div>
       <div id="chicken-menu">
         <h3>Chicken</h3>
+        <div id="chicken-items">
+          <!-- The chicken items will be generated dynamically by JavaScript -->
+        </div>
       </div>
     </div>
 
@@ -30,9 +38,9 @@
       <button id="checkout-button">Checkout</button>
     </div>
   </div>
-
   
   <script src="script.js"></script>
 
 </body>
 </html>
+
