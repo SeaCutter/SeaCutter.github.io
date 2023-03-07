@@ -1,60 +1,67 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 10px;
 }
 
 .menu, .cart {
-  flex: 1;
-  margin-right: 10px;
+flex: 1;
+margin-right: 10px;
 }
 
 .cart {
-  margin-right: 0;
+margin-right: 0;
 }
 
 .header {
-  background-color: #f1f1f1;
-  text-align: center;
-  padding: 20px;
-  font-size: 30px;
+background-color: #f1f1f1;
+text-align: center;
+padding: 20px;
+font-size: 30px;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+list-style-type: none;
+padding: 0;
+margin: 0;
 }
 
 li {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+display: flex; /* Added /
+justify-content: space-between; / Added */
+padding: 10px;
+border: 1px solid #ccc;
+margin-bottom: 10px;
 }
 
 li:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
+background-color: #f1f1f1;
+cursor: pointer;
+}
+
+.button-container { /* Added */
+display: flex;
+align-items: center;
 }
 
 button {
-  display: block;
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
+display: block;
+margin-top: 10px;
+padding: 10px;
+border: none;
+background-color: #4CAF50;
+color: white;
+font-size: 16px;
 }
 
 button:hover {
-  opacity: 0.8;
-  cursor: pointer;
+opacity: 0.8;
+cursor: pointer;
 }
 
 .cart-total {
-  font-size: 20px;
-  font-weight: bold;
+font-size: 20px;
+font-weight: bold;
 }
