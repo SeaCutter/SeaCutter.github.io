@@ -29,3 +29,20 @@ function renderItem(item) {
     </div>
   `;
 }
+
+const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+
+addToCartButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const itemName = button.dataset.itemName;
+    const itemPrice = button.dataset.itemPrice;
+    addToCart(itemName, itemPrice);
+  });
+});
+
+function addToCart(itemName, itemPrice) {
+  const cartItemsList = document.getElementById('cart-items');
+  const newItem = document.createElement('li');
+  newItem.innerHTML = `${itemName} - ${itemPrice}`;
+  cartItemsList.appendChild(newItem);
+}
