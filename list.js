@@ -1,10 +1,21 @@
-const cartItems = [];
+const items = [];
+let cartTotal = 0;
 
 fetch('items.csv')
   .then(response => response.text())
   .then(data => {
-    const items = Papa.parse(data, { header: true }).data;
-    console.log(items);
+    const itemsArray = Papa.parse(data, { header: true }).data;
+    console.log(itemsArray);
+
+    itemsArray.forEach(item => {
+      items.push({
+        name: item.name,
+        category: item.category,
+        image: item.image,
+        price: parseInt(item.price),
+        quantity: 0
+      });
+    });
 
     const fishItems = items.filter(item => item.category === 'Fish');
     const chickenItems = items.filter(item => item.category === 'Chicken');
@@ -20,16 +31,6 @@ fetch('items.csv')
       const html = renderItem(item);
       chickenContainer.innerHTML += html;
     });
-
-    const addButtons = document.querySelectorAll('.add-to-cart');
-    addButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const itemId = button.dataset.itemId;
-        const item = items.find(item => item.id === itemId);
-        cartItems.push(item);
-        renderCart();
-      });
-    });
   });
 
 function renderItem(item) {
@@ -38,31 +39,40 @@ function renderItem(item) {
       <img src="${item.image}">
       <h3>${item.name}</h3>
       <p>${item.price}</p>
-      <button class="add-to-cart" data-item-id="${item.id}">Add to Cart</button>
+      <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
     </div>
   `;
 }
 
-function renderCart() {
-  const cartItemsList = document.getElementById('cart-items');
-  cartItemsList.innerHTML = '';
-  cartItems.forEach(item => {
-    const html = `
-      <li>
-        <span>${item.name}</span>
-        <span>${item.price}</span>
-      </li>
-    `;
-    cartItemsList.innerHTML += html;
-  });
-
-  const cartTotal = cartItems.reduce((total, item) => total + parseFloat(item.price), 0);
-  const cartTotalElement = document.getElementById('cart-total');
-  cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
-}
-
+const cartItems = document.getElementById('cart-items');
+const cartTotalElement = document.getElementById('cart-total');
 const checkoutButton = document.getElementById('checkout-button');
+
 checkoutButton.addEventListener('click', () => {
-  alert(`Total: $${cartItems.reduce((total, item) => total + parseFloat(item.price), 0).toFixed(2)}`);
+  let message = 'Hello, I would like to place an order:\n\n';
+  let total = 0;
+  items.forEach(item => {
+    if (item.quantity > 0) {
+      message += `${item.name} x ${item.quantity} - ${item.price * item.quantity} \n`;
+      total += item.price * item.quantity;
+    }
+  });
+  message += `\nTotal: ${total}`;
+  const encodedMessage = encodeURIComponent(message);
+  window.location.href = `https://wa.me/9607040169?text=${encodedMessage}`;
+});
+
+document.addEventListener('click', event => {
+  if (event.target && event.target.classList.contains('add-to-cart')) {
+    const name = event.target.dataset.name;
+    const price = parseInt(event.target.dataset.price);
+    const item = items.find(item => item.name === name);
+    item.quantity++;
+    cartTotal += price;
+    cartTotalElement.innerHTML = `Total: ${cartTotal}`;
+    cartItems.innerHTML += `
+      <li>${name} x ${item.quantity} - ${price * item.quantity}</li>
+    `;
+  }
 });
 
