@@ -1,21 +1,8 @@
-const items = [];
-let cartTotal = 0;
-
 fetch('items.csv')
   .then(response => response.text())
   .then(data => {
-    const itemsArray = Papa.parse(data, { header: true }).data;
-    console.log(itemsArray);
-
-    itemsArray.forEach(item => {
-      items.push({
-        name: item.name,
-        category: item.category,
-        image: item.image,
-        price: parseInt(item.price),
-        quantity: 0
-      });
-    });
+    const items = Papa.parse(data, { header: true }).data;
+    console.log(items);
 
     const fishItems = items.filter(item => item.category === 'Fish');
     const chickenItems = items.filter(item => item.category === 'Chicken');
@@ -31,6 +18,46 @@ fetch('items.csv')
       const html = renderItem(item);
       chickenContainer.innerHTML += html;
     });
+
+    const cartItems = [];
+
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    addToCartButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        cartItems.push(items[index]);
+        renderCartItems();
+      });
+    });
+
+    const renderCartItems = () => {
+      const cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = '';
+
+      cartItems.forEach(item => {
+        const html = `<li>${item.name} - ${item.price}</li>`;
+        cartItemsContainer.innerHTML += html;
+      });
+
+      renderCartTotal();
+    };
+
+    const renderCartTotal = () => {
+      const cartTotalContainer = document.getElementById('cart-total');
+      const total = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+      cartTotalContainer.innerHTML = `Total: ${total}`;
+    };
+
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', () => {
+      let message = 'Hi, I would like to order the following items: \n\n';
+      cartItems.forEach(item => {
+        message += `${item.name} - ${item.price}\n`;
+      });
+      message += `\nTotal: ${cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0)}`;
+
+      const url = `https://wa.me/whatsappphonenumber?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
   });
 
 function renderItem(item) {
@@ -39,40 +66,8 @@ function renderItem(item) {
       <img src="${item.image}">
       <h3>${item.name}</h3>
       <p>${item.price}</p>
-      <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
+      <button class="add-to-cart-button">Add to cart</button>
     </div>
   `;
 }
-
-const cartItems = document.getElementById('cart-items');
-const cartTotalElement = document.getElementById('cart-total');
-const checkoutButton = document.getElementById('checkout-button');
-
-checkoutButton.addEventListener('click', () => {
-  let message = 'Hello, I would like to place an order:\n\n';
-  let total = 0;
-  items.forEach(item => {
-    if (item.quantity > 0) {
-      message += `${item.name} x ${item.quantity} - ${item.price * item.quantity} \n`;
-      total += item.price * item.quantity;
-    }
-  });
-  message += `\nTotal: ${total}`;
-  const encodedMessage = encodeURIComponent(message);
-  window.location.href = `https://wa.me/9607040169?text=${encodedMessage}`;
-});
-
-document.addEventListener('click', event => {
-  if (event.target && event.target.classList.contains('add-to-cart')) {
-    const name = event.target.dataset.name;
-    const price = parseInt(event.target.dataset.price);
-    const item = items.find(item => item.name === name);
-    item.quantity++;
-    cartTotal += price;
-    cartTotalElement.innerHTML = `Total: ${cartTotal}`;
-    cartItems.innerHTML += `
-      <li>${name} x ${item.quantity} - ${price * item.quantity}</li>
-    `;
-  }
-});
 
