@@ -26,23 +26,9 @@ function renderItem(item) {
       <img src="${item.image}">
       <h3>${item.name}</h3>
       <p>${item.price}</p>
+      <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
     </div>
   `;
 }
 
-const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
 
-addToCartButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const itemName = button.dataset.itemName;
-    const itemPrice = button.dataset.itemPrice;
-    addToCart(itemName, itemPrice);
-  });
-});
-
-function addToCart(itemName, itemPrice) {
-  const cartItemsList = document.getElementById('cart-items');
-  const newItem = document.createElement('li');
-  newItem.innerHTML = `${itemName} - ${itemPrice}`;
-  cartItemsList.appendChild(newItem);
-}
