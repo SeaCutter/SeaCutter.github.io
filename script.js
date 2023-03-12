@@ -1,5 +1,6 @@
 // URL for the CSV file containing the menu items
-/*const menuUrl = 'menu.csv';
+/*
+const menuUrl = 'menu.csv';
 
 // Define a variable to hold the menu data
 let menuData = [];
@@ -95,3 +96,4 @@ $(document).ready(() => {
   // Bind the checkout function to the checkout button
   $('#checkout-button').click(checkout);
 });
+*/
