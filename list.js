@@ -152,7 +152,7 @@ Total: ${total}`;
 
   // Open WhatsApp chat with message
   const encodedMessage = encodeURIComponent(message);
-  const url = `https://wa.me/whatsappphonenumber?text=${encodedMessage}`;
+  const url = `https://wa.me/9607040169?text=${encodedMessage}`;
   window.open(url, '_blank');
 }
 
