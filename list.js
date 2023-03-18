@@ -55,7 +55,7 @@
       });
       message += `\nTotal: ${cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0)}`;
 
-      const url = `https://wa.me/whatsappphonenumber?text=${encodeURIComponent(message)}`;
+      const url = `https://wa.me/9607040169?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     });
   });
