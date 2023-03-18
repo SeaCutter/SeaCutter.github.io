@@ -1,4 +1,4 @@
-/* fetch('items.csv')
+ fetch('items.csv')
   .then(response => response.text())
   .then(data => {
     const items = Papa.parse(data, { header: true }).data;
@@ -71,8 +71,9 @@ function renderItem(item) {
   `;
 }
 
-*/
+
 // Load items from CSV file
+/*
 fetch('items.csv')
   .then(response => response.text())
   .then(data => {
@@ -179,7 +180,7 @@ $(document).ready(() => {
   // Bind the checkout function to the checkout button
   $('#checkout-button').click(checkout);
 });
-*/
+
 // Define a function to handle checkout
 function checkout() {
   // Get the list of cart items as a string
@@ -197,3 +198,4 @@ $(document).ready(() => {
   // Bind the checkout function to the checkout button
   $('#checkout-button').click(checkout);
 });
+*/
