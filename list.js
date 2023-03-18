@@ -160,8 +160,26 @@ Total: ${total}`;
 // Add event listener to Checkout button
 const checkoutButton = document.getElementById('checkout-button');
 checkoutButton.addEventListener('click', checkout);
-*/
 
+
+// Define a function to handle checkout
+function checkout() {
+  // Get the list of cart items as a string
+  const cartItemNames = cartItems.map(item => item.name).join(', ');
+  // Construct the WhatsApp message
+  const message = 'I would like to purchase the following items from your store: ' + cartItemNames;
+  // Construct the WhatsApp URL
+  const whatsappUrl = 'https://wa.me/9607040169?text=' + encodeURIComponent(message);
+  // Redirect to the WhatsApp URL
+  window.location.replace(whatsappUrl);
+}
+// Load the menu when the page is ready
+$(document).ready(() => {
+  loadMenu();
+  // Bind the checkout function to the checkout button
+  $('#checkout-button').click(checkout);
+});
+*/
 // Define a function to handle checkout
 function checkout() {
   // Get the list of cart items as a string
